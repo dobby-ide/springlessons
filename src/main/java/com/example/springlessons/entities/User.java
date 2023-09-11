@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 //it matches the table inside the database
 @Entity
 @Table(name = "users")
@@ -17,5 +19,10 @@ public class User {
     private String username;
 
     private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_authorities",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    private Set<Authority> authorities;
 
 }
